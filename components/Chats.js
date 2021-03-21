@@ -20,7 +20,7 @@ const firestore = firebase.firestore();
 export default function Chats(){
 
   const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt', 'desc').limit(25);
+  const query = messagesRef.orderBy('createdAt', 'desc').limit(100);
   const [ messages ] = useCollectionData(query, { idField: 'id' });
   const bottomRef = useRef();
   const scrollToBottom = () => {
