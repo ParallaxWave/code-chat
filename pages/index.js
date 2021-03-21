@@ -5,6 +5,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import React from 'react';
 
 import ChatArea from '../components/ChatArea';
+import ChannelArea from '../components/ChannelArea';
+import UserArea from '../components/UserArea';
 import Head from 'next/head';
 
 
@@ -54,18 +56,24 @@ function Main(){
     </Head>
      <div className="grid grid-cols-12 h-screen">
        <div className="col-span-1 text-center" style={{ background: '#202225' }}>
-         <button className="text-white px-3 py-2 shadow-lg m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136' }} onClick={() => auth.signOut()}>
-         Sign Out 
+         <button className="text-white p-6 rounded-md material-icons shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }} onClick={() => auth.signOut()}>
+          logout 
+         </button>
+         <button className="text-white p-6 rounded-md material-icons shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }}>
+          settings 
+         </button>
+         <button className="text-white p-6 rounded-md material-icons shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }}>
+          help 
          </button>
         </div>
        <div className="col-span-3" style={{ background: '#2f3136' }}>
-         Test 2
+         <ChannelArea />
         </div>
        <div className="col-span-6" >
          <ChatArea />
         </div>
        <div className="col-span-2" style={{ background: '#2f3136' }}>
-          Test 2
+         <UserArea />
         </div>
 
      </div>
@@ -111,10 +119,12 @@ export function ChatMsg(props){
     <>
       <div className="mt-3">
           <img src={ photoURL } className="rounded-full inline mr-2" width="24"/> 
-          <span className="font-bold mr-3">
+          <span className="font-bold mr-3 break-words">
             { user } :  
           </span>
-          {text}
+          <span className="break-words">
+            {text}
+          </span>
       </div>
     </>
   );
