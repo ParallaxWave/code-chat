@@ -189,3 +189,21 @@ export function Input(){
     </>
   );
 }
+export function UserBar(){
+  return (
+    <>
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          background: '#292b2f',
+          left: '8.33333333%',
+          right: '66.66666666%'
+        }} className="p-3 text-center">
+          <img src={auth.currentUser.photoURL} width="30" className="rounded-full inline"/>
+          <span className="font-bold ml-3 truncate">
+            {auth.currentUser.displayName}
+          </span>
+      </div>
+    </>
+  );
+}
