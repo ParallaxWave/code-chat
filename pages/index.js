@@ -1,65 +1,111 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+import ChatArea from '../components/ChatArea';
+import Head from 'next/head';
+
+
+const config = {
+    apiKey: "AIzaSyDsf4Pu8zkx0wiyIvGZSRCjfTEfxyv42kk",
+    authDomain: "coder-chat-cfa8b.firebaseapp.com",
+    projectId: "coder-chat-cfa8b",
+    storageBucket: "coder-chat-cfa8b.appspot.com",
+    messagingSenderId: "1056086333332",
+    appId: "1:1056086333332:web:37a70c492b0828f4c6e181",
+    measurementId: "G-SMW77E1XT2"
+};
+
+const firebaseApp = firebase.apps && firebase.apps.length > 0 ? firebase.apps[0] : firebase.initializeApp(config)
+
+const auth = firebase.auth();
+
+
 
 export default function Home() {
+
+  const [ user ] = useAuthState(auth);
+
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+   <> 
+     { user ? <div><Main/></div>: <SignIn/>}
+   </> 
+  );
+}
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+  
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+function Main(){
+  
+  return (
+      <> 
+    <Head>
+      <title>Coder Chat</title>
+      <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+		  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"/>
+		  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"/>
+    </Head>
+     <div className="grid grid-cols-12 h-screen">
+       <div className="col-span-1 text-center" style={{ background: '#202225' }}>
+         <button className="text-white px-3 py-2 shadow-lg m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136' }} onClick={() => auth.signOut()}>
+         Sign Out 
+         </button>
         </div>
-      </main>
+       <div className="col-span-3" style={{ background: '#2f3136' }}>
+         Test 2
+        </div>
+       <div className="col-span-6" >
+         <ChatArea />
+        </div>
+       <div className="col-span-2" style={{ background: '#2f3136' }}>
+          Test 2
+        </div>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+     </div>
+    </>  
+  );
+}
+
+
+function SignIn(){
+
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  };
+
+  return (
+    <>
+      <div 
+        onClick={signInWithGoogle}
+        style={{  
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          minHeight: '100vh',
+          fontSize: 40
+        }}
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+        Sign In with Google
+      </div>
+    </>
+  );
+}
+
+
+
+export function ChatMsg(props){
+
+  const { text, uid } = props.message;
+
+  return (
+    <>
+      <p>{text}</p>
+    </>
+  );
 }
