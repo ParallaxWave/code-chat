@@ -24,7 +24,14 @@ export default function Chats(){
 
   return (
     <>
-      <div className="p-5">
+      <div className="p-5" style={{
+          overflowY: 'scroll',
+          position: 'absolute',
+          height: '50%',
+          left: '33.333333%',
+          right: '17%',
+          height: '83%'
+        }}>
         {messages && messages.map(msg => <ChatMsg key={msg.id} message={msg}/>)}
       </div>
     </>

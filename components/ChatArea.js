@@ -1,6 +1,6 @@
 import ChatNav from './ChatNav';
 import Chats from './Chats';
-import Input from './Input';
+import { Input } from '../pages/index';
 
 
 export default function ChatArea(){

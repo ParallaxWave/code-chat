@@ -1,6 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import React from 'react';
 
 import ChatArea from '../components/ChatArea';
 import Head from 'next/head';
@@ -19,6 +21,8 @@ const config = {
 const firebaseApp = firebase.apps && firebase.apps.length > 0 ? firebase.apps[0] : firebase.initializeApp(config)
 
 const auth = firebase.auth();
+const firestore = firebase.firestore();
+const messagesRef = firestore.collection('messages');
 
 
 
@@ -101,11 +105,68 @@ function SignIn(){
 
 export function ChatMsg(props){
 
-  const { text, uid } = props.message;
+  const { text, uid, photoURL, createdAt, user } = props.message;
+  console.log(photoURL);
+  return (
+    <>
+      <div className="mt-3">
+          <img src={ photoURL } className="rounded-full inline mr-2" width="24"/> 
+          <span className="font-bold mr-3">
+            { user } :  
+          </span>
+          {text}
+      </div>
+    </>
+  );
+}
+
+
+
+
+export function Input(){
+  
+  const [msg, setMsg] = React.useState('');
+
+  const sendMsg = async (e) => {
+    e.preventDefault();
+    const data = msg;
+    setMsg('');
+    if(msg){
+      const { uid, photoURL } = auth.currentUser;
+      await messagesRef.add({ 
+        text: data,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        uid,
+        photoURL,
+        user: auth.currentUser.displayName
+      });
+    }
+  };
 
   return (
     <>
-      <p>{text}</p>
+      <form onSubmit={ e => sendMsg(e) }>
+        <div className="flex">
+          <div style={{
+              position: 'absolute',
+              bottom: 0,
+              left: '33.3333333%',
+              right: '17%',
+              background: '#40444b'
+           }} className=" m-4 px-3 py-3 font-normal rounded-sm shadow-sm flex-grow flex">
+              <input 
+                type="text" 
+                style={{
+                background: '#40444b'
+                 }}
+                placeholder="Type your message here" 
+                className="flex-grow"
+                value={msg}
+                onChange={newMsg => setMsg(newMsg.target.value)}
+            />
+          </div>
+        </div>
+      </form>
     </>
   );
 }
