@@ -131,7 +131,7 @@ export function Input(){
     e.preventDefault();
     const data = msg;
     setMsg('');
-    if(msg){
+    if(!(msg === null || msg.match(/^ *$/) !== null)){
       const { uid, photoURL } = auth.currentUser;
       await messagesRef.add({ 
         text: data,

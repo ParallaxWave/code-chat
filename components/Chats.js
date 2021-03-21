@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ChatMsg } from '../pages/index';
+import { useEffect, useRef } from 'react';
 
 const config = {
     apiKey: "AIzaSyDsf4Pu8zkx0wiyIvGZSRCjfTEfxyv42kk",
@@ -20,7 +21,23 @@ export default function Chats(){
 
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt').limit(25);
-  const [messages] = useCollectionData(query, { idField: 'id' });
+  const [ messages ] = useCollectionData(query, { idField: 'id' });
+  const bottomRef = useRef();
+  const scrollToBottom = () => {
+        bottomRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        });
+    };
+
+  useEffect(() => {
+        scrollToBottom()
+    }, [ messages ]);
+
+    useEffect(() => {
+        scrollToBottom()
+    }, []);
+
 
   return (
     <>
@@ -33,6 +50,7 @@ export default function Chats(){
           height: '83%'
         }}>
         {messages && messages.map(msg => <ChatMsg key={msg.id} message={msg}/>)}
+        <div ref={bottomRef} className="list-bottom"></div>
       </div>
     </>
   );
