@@ -2,6 +2,7 @@
   font-family: "Poppins";
   scroll: smooth;
   outline: none;
+  transition: 0.25s;
 }
 
 body{

@@ -55,15 +55,24 @@ function Main(){
 		  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"/>
     </Head>
      <div className="grid grid-cols-12 h-screen">
-       <div className="col-span-1 text-center" style={{ background: '#202225' }}>
-         <button className="text-white p-6 rounded-md material-icons shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }} onClick={() => auth.signOut()}>
+       <div className="col-span-1 grid grid-rows-6 text-center" style={{ background: '#202225' }}>
+         <button className="text-white p-6 rounded-md material-icons hover:text-blue-500 shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }} onClick={() => auth.signOut()}>
           logout 
          </button>
-         <button className="text-white p-6 rounded-md material-icons shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }}>
+         <button className="text-white p-6 rounded-md material-icons hover:text-blue-500 shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }}>
           settings 
          </button>
-         <button className="text-white p-6 rounded-md material-icons shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }}>
+         <button className="text-white p-6 rounded-md material-icons hover:text-blue-500 shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }}>
           help 
+         </button>
+         <button className="text-white p-6 rounded-md material-icons hover:text-blue-500 shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }}>
+          code 
+         </button>
+         <button className="text-white p-6 rounded-md material-icons hover:text-blue-500 shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }}>
+          people 
+         </button>
+         <button className="text-white p-6 rounded-md material-icons hover:text-blue-500 shadow-xl m-2 rounded-sm focus:outline-none" style={{ background: '#2f3136', fontSize: 32 }}>
+          add 
          </button>
         </div>
        <div className="col-span-3" style={{ background: '#2f3136' }}>
