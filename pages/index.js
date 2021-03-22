@@ -3,6 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import React from 'react';
+import markdown from 'markdown';
 
 import ChatArea from '../components/ChatArea';
 import ChannelArea from '../components/ChannelArea';
@@ -31,7 +32,7 @@ const messagesRef = firestore.collection('messages');
 export default function Home() {
 
   const [ user ] = useAuthState(auth);
-
+  
 
   return (
    <> 
@@ -118,22 +119,15 @@ function SignIn(){
   );
 }
 
-
-
 export function ChatMsg(props){
-
   const { text, uid, photoURL, createdAt, user } = props.message;
   let out = text;
-  if(text.startsWith('**') && text.endsWith('**')){
-    out = <span className="font-bold text-white">{text.slice(2).slice(0, -2)}</span>
+  if(text.includes('**') || text.includes('*')){
+    out = <span dangerouslySetInnerHTML={{__html: markdown.markdown.toHTML(text).slice(3).slice(0,-4)}} />
   }
-  else if(text.startsWith('*') && text.endsWith('*')){
-    out = <i>{text.slice(1).slice(0, -1)}</i>
-  }
-  else if((text.includes('http://') || text.includes('https://')) && text.match(/\.(jpeg|jpg|gif|png)$/) != null){
+    else if((text.includes('http://') || text.includes('https://')) && text.match(/\.(jpeg|jpg|gif|png)$/) != null){
     out = <img src={text} width="350" className="mt-3 rounded-sm shadow-sm"/>
   }
-  console.log(photoURL);
   return (
     <>
       <div className="mt-3">
@@ -148,8 +142,6 @@ export function ChatMsg(props){
     </>
   );
 }
-
-
 
 
 export function Input(){
