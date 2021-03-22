@@ -124,7 +124,13 @@ export function ChatMsg(props){
 
   const { text, uid, photoURL, createdAt, user } = props.message;
   let out = text;
-  if((text.includes('http://') || text.includes('https://')) && text.match(/\.(jpeg|jpg|gif|png)$/) != null){
+  if(text.startsWith('**') && text.endsWith('**')){
+    out = <span className="font-bold text-white">{text.slice(2).slice(0, -2)}</span>
+  }
+  else if(text.startsWith('*') && text.endsWith('*')){
+    out = <i>{text.slice(1).slice(0, -1)}</i>
+  }
+  else if((text.includes('http://') || text.includes('https://')) && text.match(/\.(jpeg|jpg|gif|png)$/) != null){
     out = <img src={text} width="350" className="mt-3 rounded-sm shadow-sm"/>
   }
   console.log(photoURL);
