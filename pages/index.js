@@ -123,6 +123,10 @@ function SignIn(){
 export function ChatMsg(props){
 
   const { text, uid, photoURL, createdAt, user } = props.message;
+  let out = text;
+  if(text.match(/\.(jpeg|jpg|gif|png)$/) != null){
+    out = <img src={text} width="350" className="mt-3"/>
+  }
   console.log(photoURL);
   return (
     <>
@@ -132,7 +136,7 @@ export function ChatMsg(props){
             { user } :  
           </span>
           <span className="break-words">
-            {text}
+            { out }
           </span>
       </div>
     </>
