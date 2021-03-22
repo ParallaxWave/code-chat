@@ -48,7 +48,7 @@ function Main(){
   return (
       <> 
     <Head>
-      <title>Coder Chat</title>
+      <title>Code Chat</title>
       <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
 		  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"/>
@@ -124,8 +124,8 @@ export function ChatMsg(props){
 
   const { text, uid, photoURL, createdAt, user } = props.message;
   let out = text;
-  if(text.match(/\.(jpeg|jpg|gif|png)$/) != null){
-    out = <img src={text} width="350" className="mt-3"/>
+  if((text.includes('http://') || text.includes('https://')) && text.match(/\.(jpeg|jpg|gif|png)$/) != null){
+    out = <img src={text} width="350" className="mt-3 rounded-sm shadow-sm"/>
   }
   console.log(photoURL);
   return (
