@@ -5,6 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import React from 'react';
 import markdown from 'markdown';
 
+
 import ChatArea from '../components/ChatArea';
 import ChannelArea from '../components/ChannelArea';
 import UserArea from '../components/UserArea';
@@ -32,6 +33,18 @@ const messagesRef = firestore.collection('messages');
 export default function Home() {
 
   const [ user ] = useAuthState(auth);
+   async function test(){
+    const req = await fetch('https://dopeyWirelessRate.multi76.repl.co/', {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({msg: 'hi lol recurse here'})
+    });
+    const res = await req.json();
+    console.log(res);
+  }
+//  test();
   
 
   return (
@@ -98,11 +111,14 @@ function SignIn(){
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
+  const signInWithGithub = () => {
+    const provider = new firebase.auth.GithubAuthProvider();
+    auth.signInWithPopup(provider);
+  };
 
   return (
     <>
       <div 
-        onClick={signInWithGoogle}
         style={{  
           display: 'flex',
           flexDirection: 'column',
@@ -113,7 +129,33 @@ function SignIn(){
           fontSize: 40
         }}
         >
-        Sign In with Google
+        <button 
+          onClick={signInWithGoogle}
+          style={{
+          background: '#61afef',
+          border: 'none',
+          outline: 'none',
+          borderRadius: 4,
+          padding: 12,
+          fontSize: 32,
+          color: '#e5f9f0'
+          }}>
+          Sign In with Google
+        </button>
+        <br />
+        <button 
+          onClick={signInWithGithub}
+          style={{
+          background: '#61afef',
+          border: 'none',
+          outline: 'none',
+          borderRadius: 4,
+          padding: 12,
+          fontSize: 32,
+          color: '#e5f9f0'
+          }}>
+          Sign In with Github
+        </button>
       </div>
     </>
   );
@@ -185,6 +227,7 @@ export function Input(){
                 value={msg}
                 onChange={newMsg => setMsg(newMsg.target.value)}
             />
+            <button className="material-icons focus:outline-none" style={{ fontSize: 24 }}>add_circle</button>
           </div>
         </div>
       </form>
