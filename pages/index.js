@@ -111,10 +111,6 @@ function SignIn(){
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
-  const signInWithGithub = () => {
-    const provider = new firebase.auth.GithubAuthProvider();
-    auth.signInWithPopup(provider);
-  };
 
   return (
     <>
@@ -141,20 +137,6 @@ function SignIn(){
           color: '#e5f9f0'
           }}>
           Sign In with Google
-        </button>
-        <br />
-        <button 
-          onClick={signInWithGithub}
-          style={{
-          background: '#61afef',
-          border: 'none',
-          outline: 'none',
-          borderRadius: 4,
-          padding: 12,
-          fontSize: 32,
-          color: '#e5f9f0'
-          }}>
-          Sign In with Github
         </button>
       </div>
     </>
