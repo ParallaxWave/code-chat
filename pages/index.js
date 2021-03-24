@@ -154,7 +154,7 @@ export function ChatMsg(props){
     out = <img src={text} width="350" className="mt-3 rounded-sm shadow-sm"/>
   }
   else if(text.includes('youtube.com/watch?v')){
-    out = <span><a href={text} className="text-blue-500">{text}</a><br /><br /><div className="p-4 rounded-md shadow-md" style={{ background: '#2f3136' }}><ReactPlayer controls width="300" url={text}/></div></span>
+    out = <span><a href={text} className="text-blue-500">{text}</a><br /><br /><div className="p-4 rounded-md shadow-md" style={{ background: '#292b2f' }}><ReactPlayer controls width="300" url={text}/></div></span>
   }
   return (
     <>
