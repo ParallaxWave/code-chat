@@ -5,7 +5,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import React from 'react';
 import markdown from 'markdown';
 import ReactPlayer from 'react-player/youtube'
-
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "https://dopeywirelessrate.multi76.repl.co";
 
 import ChatArea from '../components/ChatArea';
 import ChannelArea from '../components/ChannelArea';
@@ -34,17 +35,17 @@ const messagesRef = firestore.collection('messages');
 export default function Home() {
 
   const [ user ] = useAuthState(auth);
-   async function test(){
-    const req = await fetch('https://dopeyWirelessRate.multi76.repl.co/', {
-      method: 'POST',
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify({msg: 'hi lol recurse here'})
-    });
-    const res = await req.json();
-    console.log(res);
-  }
+//   async function test(){
+//    const req = await fetch('https://dopeyWirelessRate.multi76.repl.co/', {
+//      method: 'POST',
+//      headers: {
+//        "Content-type": "application/json"
+//      },
+//      body: JSON.stringify({msg: 'hi lol recurse here'})
+//    });
+//    const res = await req.json();
+//    console.log(res);
+//  }
 //  test();
   
 
@@ -59,6 +60,11 @@ export default function Home() {
   
 
 function Main(){
+  React.useEffect(() => {
+
+     const socket = socketIOClient(ENDPOINT);
+
+  }, []); 
   
   return (
       <> 
@@ -156,6 +162,9 @@ export function ChatMsg(props){
   else if(text.includes('youtube.com/watch?v')){
     out = <span><a href={text} className="text-blue-500">{text}</a><br /><br /><div className="p-4 rounded-md shadow-md" style={{ background: '#292b2f' }}><ReactPlayer controls width="300" url={text}/></div></span>
   }
+  else if(text.includes('http://') || text.includes('https://')){
+    out = <a href={text} className="text-blue-500">{text}</a>
+    }
   return (
     <>
       <div className="mt-3">
