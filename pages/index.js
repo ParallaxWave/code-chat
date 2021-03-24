@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import React from 'react';
 import markdown from 'markdown';
+import ReactPlayer from 'react-player/youtube'
 
 
 import ChatArea from '../components/ChatArea';
@@ -151,6 +152,9 @@ export function ChatMsg(props){
   }
     else if((text.includes('http://') || text.includes('https://')) && text.match(/\.(jpeg|jpg|gif|png)$/) != null){
     out = <img src={text} width="350" className="mt-3 rounded-sm shadow-sm"/>
+  }
+  else if(text.includes('youtube.com/watch?v')){
+    out = <span><a href={text} className="text-blue-500">{text}</a><br /><br /><div className="p-4 rounded-md shadow-md" style={{ background: '#2f3136' }}><ReactPlayer controls width="300" url={text}/></div></span>
   }
   return (
     <>
