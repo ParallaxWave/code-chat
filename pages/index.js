@@ -4,7 +4,7 @@ import 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import React from 'react';
 import markdown from 'markdown';
-import ReactPlayer from 'react-player/youtube'
+import ReactPlayer from 'react-player/youtube';
 import socketIOClient from "socket.io-client";
 const ENDPOINT = "https://dopeywirelessrate.multi76.repl.co";
 
@@ -62,7 +62,7 @@ export default function Home() {
 function Main(){
   React.useEffect(() => {
 
-     const socket = socketIOClient(ENDPOINT);
+//     const socket = socketIOClient(ENDPOINT);
 
   }, []); 
   
@@ -151,7 +151,7 @@ function SignIn(){
 }
 
 export function ChatMsg(props){
-  const { text, uid, photoURL, createdAt, user } = props.message;
+  const { text, uid, photoURL, createdAt, user, botName } = props.message;
   let out = text;
   if(text.includes('**') || text.includes('*')){
     out = <span dangerouslySetInnerHTML={{__html: markdown.markdown.toHTML(text).slice(3).slice(0,-4)}} />
@@ -163,14 +163,14 @@ export function ChatMsg(props){
     out = <span><a href={text} className="text-blue-500">{text}</a><br /><br /><div className="p-4 rounded-md shadow-md" style={{ background: '#292b2f' }}><ReactPlayer controls width="300" url={text}/></div></span>
   }
   else if(text.includes('http://') || text.includes('https://')){
-    out = <a href={text} className="text-blue-500">{text}</a>
+    out = <a href={text} target="_blank" className="text-blue-500">{text}</a>
     }
   return (
     <>
       <div className="mt-3">
           <img src={ photoURL } className="rounded-full inline mr-2" width="24"/> 
           <span className="font-bold mr-3 break-words">
-            { user } :  
+            { user || botName } :  
           </span>
           <span className="break-words">
             { out }
