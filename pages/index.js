@@ -160,7 +160,16 @@ export function ChatMsg(props){
     out = <img src={text} width="350" className="mt-3 rounded-sm shadow-sm"/>
   }
   else if(text.includes('youtube.com/watch?v')){
-    out = <span><a href={text} className="text-blue-500">{text}</a><br /><br /><div className="p-4 rounded-md shadow-md" style={{ background: '#292b2f' }}><ReactPlayer controls width="300" url={text}/></div></span>
+//    out = <span><a href={text} className="text-blue-500">{text}</a><br /><br /><div className="p-4 rounded-md shadow-md" style={{ background: '#292b2f' }}><ReactPlayer controls width="300" url={text}/></div></span>
+    out = "";
+    text.split(' ').forEach(a => {
+      if(a.includes('youtube.com/watch?v')){
+        out += <span><a href={a} className="text-blue-500">{a}</a><br /><br /><div className="p-4 rounded-md shadow-md" style={{ background: '#292b2f' }}><ReactPlayer controls width="300" url={a}/></div></span>
+      }
+      else{
+        out += <span>a</span>
+      }
+    });
   }
   else if(text.includes('http://') || text.includes('https://')){
     out = <a href={text} target="_blank" className="text-blue-500">{text}</a>
