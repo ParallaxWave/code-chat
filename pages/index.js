@@ -15,13 +15,13 @@ import Head from 'next/head';
 
 
 const config = {
-    apiKey: "AIzaSyDsf4Pu8zkx0wiyIvGZSRCjfTEfxyv42kk",
-    authDomain: "coder-chat-cfa8b.firebaseapp.com",
-    projectId: "coder-chat-cfa8b",
-    storageBucket: "coder-chat-cfa8b.appspot.com",
-    messagingSenderId: "1056086333332",
-    appId: "1:1056086333332:web:37a70c492b0828f4c6e181",
-    measurementId: "G-SMW77E1XT2"
+   apiKey: "AIzaSyBIg_ks8lpfs3vYtdBj4OVVrjlC1pYPm8Y",
+    authDomain: "code-chat-ee75d.firebaseapp.com",
+    projectId: "code-chat-ee75d",
+    storageBucket: "code-chat-ee75d.appspot.com",
+    messagingSenderId: "380505941395",
+    appId: "1:380505941395:web:edd76ea401a080f89b7466",
+    measurementId: "G-J6S5L8R4BL"
 };
 
 const firebaseApp = firebase.apps && firebase.apps.length > 0 ? firebase.apps[0] : firebase.initializeApp(config)
