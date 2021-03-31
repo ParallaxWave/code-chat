@@ -227,7 +227,7 @@ export function Input(){
         body: JSON.stringify({ uid, photoURL, text: data })
       });
       const res = await req.json();
-      console.log(res);
+       await messagesRef.add(res);
     }
     test();
     }
