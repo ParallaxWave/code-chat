@@ -5,8 +5,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import React from 'react';
 import markdown from 'markdown';
 import ReactPlayer from 'react-player/youtube';
-import socketIOClient from "socket.io-client";
-const ENDPOINT = "https://dopeywirelessrate.multi76.repl.co";
+//import socketIOClient from "socket.io-client";
+//const ENDPOINT = "https://dopeywirelessrate.multi76.repl.co";
 
 import ChatArea from '../components/ChatArea';
 import ChannelArea from '../components/ChannelArea';
@@ -29,6 +29,7 @@ const firebaseApp = firebase.apps && firebase.apps.length > 0 ? firebase.apps[0]
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const messagesRef = firestore.collection('messages');
+//const pinsRef = firestore.collection('pins');
 
 
 
@@ -165,6 +166,24 @@ export function ChatMsg(props){
   else if(text.includes('http://') || text.includes('https://')){
     out = <a href={text} target="_blank" className="text-blue-500">{text}</a>
     }
+
+  /*async function addPin(){
+      await pinsRef.add({ 
+        text,
+        createdAt,
+        uid,
+        photoURL,
+        user
+      });
+      await messagesRef.add({ 
+        text: `**${user} pinned a message.**`,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        uid: 'bVknyYQAwwW41UBHjj3cjV5jhgN3',
+        photoURL: 'https://stacks-production-us-east-1-upload.imgix.net/7add4fe9-703d-4787-baac-a6041ecbf3fe.png',
+        user: 'Clyde Bot'
+      });
+  }*/
+
   return (
     <>
       <div className="mt-3">
@@ -198,6 +217,19 @@ export function Input(){
         photoURL,
         user: auth.currentUser.displayName
       });
+     async function test(){
+      const req = await fetch('https://DopeyWirelessRate.multi76.repl.co/messages', {
+        method: 'POST',
+        headers: {
+          "Content-type": "application/json",
+          "access-control-allow-credentials": true 
+        },
+        body: JSON.stringify({ uid, photoURL, text: data })
+      });
+      const res = await req.json();
+      console.log(res);
+    }
+    test();
     }
   };
 
