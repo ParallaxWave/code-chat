@@ -230,6 +230,12 @@ export function Input(){
        await messagesRef.add(res);
     }
     test();
+      //Delete old msg 
+      messagesRef.orderBy('createdAt', 'asc').limit(1).get()
+        .then(querySnapshot => {
+  //        console.log(querySnapshot.docs[0].ref);
+          querySnapshot.docs[0].ref.delete();
+        });
     }
   };
 
