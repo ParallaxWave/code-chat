@@ -12,6 +12,8 @@ import ChatArea from '../components/ChatArea';
 import ChannelArea from '../components/ChannelArea';
 import UserArea from '../components/UserArea';
 import Head from 'next/head';
+import Filter from 'bad-words';
+const filter = new Filter();
 
 
 const config = {
@@ -206,7 +208,7 @@ export function Input(){
 
   const sendMsg = async (e) => {
     e.preventDefault();
-    const data = msg;
+    const data = filter.clean(msg);
     setMsg('');
     if(!(msg === null || msg.match(/^ *$/) !== null)){
       const { uid, photoURL } = auth.currentUser;
